@@ -51,15 +51,14 @@ export const usePollResults = (pollId) => {
     };
   }, [pollId]);
 
-  const chartData = useMemo(
-    () =>
-      results.options.map((option) => ({
-        name: option.text,
-        votes: option.votes,
-        percentage: option.percentage
-      })),
-    [results]
-  );
+  const chartData = useMemo(() => {
+    if (!results?.options) return [];
+    return results.options.map((option) => ({
+      name: option.text,
+      votes: option.votes,
+      percentage: option.percentage
+    }));
+  }, [results]);
 
   return { results, chartData, isSocketConnected };
 };
