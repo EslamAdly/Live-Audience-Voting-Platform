@@ -13,7 +13,9 @@ const app = express();
 const allowedOrigins = [
   env.frontendUrl,
   "http://localhost:5173",
-  "http://127.0.0.1:5173"
+  "http://127.0.0.1:5173",
+  "https://live-audience-voting-platform.vercel.app",
+  "https://live-audience-voting-platform-u2yx.vercel.app"
 ];
 
 // Allow additional origins from environment variable (comma-separated)
