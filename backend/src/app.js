@@ -3,6 +3,7 @@ import express from "express";
 import helmet from "helmet";
 import morgan from "morgan";
 import { env } from "./config/env.js";
+import { verifyDatabaseConnection } from "./config/db.js";
 import { errorHandler, notFoundHandler } from "./middlewares/errorHandler.js";
 import { requestContext } from "./middlewares/requestContext.js";
 import { pollRouter } from "./modules/polls/poll.routes.js";
@@ -48,9 +49,9 @@ app.get("/health", async (_req, res) => {
   }
 });
 
-app.use("/api/polls", pollRouter);
-app.use("/api/polls", resultsRouter);
-app.use("/api/vote", voteRouter);
+app.use("/polls", pollRouter);
+app.use("/polls", resultsRouter);
+app.use("/vote", voteRouter);
 
 app.use(notFoundHandler);
 app.use(errorHandler);
