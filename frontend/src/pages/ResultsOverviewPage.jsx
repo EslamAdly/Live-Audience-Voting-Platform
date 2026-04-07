@@ -4,10 +4,26 @@ import { pollService } from "../services/pollService";
 
 export const ResultsOverviewPage = () => {
   const [polls, setPolls] = useState([]);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    pollService.getPolls({ page: 1, pageSize: 50 }).then((data) => setPolls(data.items));
+    pollService
+      .getPolls({ page: 1, pageSize: 50 })
+      .then((data) => {
+        console.log("API Response:", data);
+        if (data && data.items) {
+          setPolls(data.items);
+        } else {
+          setError("Invalid response format from API");
+        }
+      })
+      .catch((err) => {
+        console.error("API Error:", err);
+        setError(`Failed to fetch polls: ${err.message}`);
+      });
   }, []);
+
+  if (error) return <div className="text-red-600">{error}</div>;
 
   return (
     <div className="space-y-4">
