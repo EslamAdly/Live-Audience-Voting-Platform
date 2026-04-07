@@ -1,30 +1,30 @@
 import http from "http";
-import { Server } from "socket.io";
+// import { Server } from "socket.io";
 import { app } from "./app.js";
 import { verifyDatabaseConnection } from "./config/db.js";
 import { env } from "./config/env.js";
-import { setSocketServer } from "./socket.js";
+// import { setSocketServer } from "./socket.js";
 
 const server = http.createServer(app);
 
-const io = new Server(server, {
-  cors: {
-    origin: env.frontendUrl,
-    methods: ["GET", "POST"]
-  }
-});
+// const io = new Server(server, {
+//   cors: {
+//     origin: env.frontendUrl,
+//     methods: ["GET", "POST"]
+//   }
+// });
 
-io.on("connection", (socket) => {
-  socket.on("poll:subscribe", (pollId) => {
-    socket.join(`poll:${pollId}`);
-  });
+// io.on("connection", (socket) => {
+//   socket.on("poll:subscribe", (pollId) => {
+//     socket.join(`poll:${pollId}`);
+//   });
 
-  socket.on("poll:unsubscribe", (pollId) => {
-    socket.leave(`poll:${pollId}`);
-  });
-});
+//   socket.on("poll:unsubscribe", (pollId) => {
+//     socket.leave(`poll:${pollId}`);
+//   });
+// });
 
-setSocketServer(io);
+// setSocketServer(io);
 
 const start = async () => {
   try {
@@ -40,4 +40,8 @@ const start = async () => {
   }
 };
 
-start();
+if (env.nodeEnv !== "production") {
+  start();
+}
+
+export default app;

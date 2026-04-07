@@ -30,9 +30,9 @@ app.get("/health", (_req, res) => {
   res.json({ status: "ok" });
 });
 
-app.use("/api/polls", pollRouter);
-app.use("/api/polls", resultsRouter);
-app.use("/api/vote", voteRouter);
+app.use("/polls", pollRouter);
+app.use("/polls", resultsRouter);
+app.use("/vote", voteRouter);
 
 app.use(notFoundHandler);
 app.use(errorHandler);
